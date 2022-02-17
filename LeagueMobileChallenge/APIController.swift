@@ -62,6 +62,16 @@ class APIController {
         }
 
         request(url: url) { data, error in
+            guard let data = data, error == nil else { return }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
+                print("DEBUG: json: \(json)")
+            }
+            catch {
+                print("DEBUG: Error while fetching users...")
+            }
+
             completion(data, error)
         }
     }

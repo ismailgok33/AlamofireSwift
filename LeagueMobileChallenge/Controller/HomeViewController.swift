@@ -22,6 +22,23 @@ class HomeViewController: UITableViewController {
         super.viewDidLoad()
 
         configureUI()
+        
+        APIController.shared.fetchUserToken { res, error in
+            
+            APIController.shared.fetchUsers { data, error in
+                guard let data = data, error == nil else { return }
+                
+                do {
+                    let result = try JSONDecoder().decode([User].self, from: data as! Data)
+                    print("DEBUG: result is \(result)")
+                }
+                catch {
+                    print("DEBUG: Error while fetching users... \(error)")
+                }
+            }
+        }
+        
+        
     }
     
     // MARK: - Helpers

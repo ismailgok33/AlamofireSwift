@@ -16,7 +16,10 @@
 		B6AC697221E6578F0094A9B1 /* LeagueMobileChallengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AC697121E6578F0094A9B1 /* LeagueMobileChallengeUITests.swift */; };
 		B6AC69A221ECEC740094A9B1 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AC69A121ECEC740094A9B1 /* APIController.swift */; };
 		C711E601661AAB36D173F831 /* Pods_LeagueMobileChallenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5EC5EC130097654F1E0F3C6 /* Pods_LeagueMobileChallenge.framework */; };
-		EC9245D927BCD0DE003F5F08 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9245D827BCD0DE003F5F08 /* UserViewModel.swift */; };
+		EC5E2ECC27BDE40E004C622D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5E2ECB27BDE40E004C622D /* Post.swift */; };
+		EC5E2ECE27BDE456004C622D /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5E2ECD27BDE456004C622D /* Album.swift */; };
+		EC5E2ED027BDE48A004C622D /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5E2ECF27BDE48A004C622D /* Photo.swift */; };
+		EC9245D927BCD0DE003F5F08 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9245D827BCD0DE003F5F08 /* PostViewModel.swift */; };
 		EC9245DC27BCD356003F5F08 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9245DB27BCD356003F5F08 /* Extensions.swift */; };
 		ECE02DA427BC834A004D7727 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE02DA327BC834A004D7727 /* HomeViewController.swift */; };
 		ECE02DAA27BC8A77004D7727 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE02DA927BC8A77004D7727 /* Cell.swift */; };
@@ -62,7 +65,10 @@
 		B6AC697321E6578F0094A9B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6AC69A121ECEC740094A9B1 /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 		D938A729EC8AE9651EAE0B00 /* Pods-LeagueMobileChallenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeagueMobileChallenge.release.xcconfig"; path = "Pods/Target Support Files/Pods-LeagueMobileChallenge/Pods-LeagueMobileChallenge.release.xcconfig"; sourceTree = "<group>"; };
-		EC9245D827BCD0DE003F5F08 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		EC5E2ECB27BDE40E004C622D /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		EC5E2ECD27BDE456004C622D /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		EC5E2ECF27BDE48A004C622D /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		EC9245D827BCD0DE003F5F08 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		EC9245DB27BCD356003F5F08 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		ECE02DA327BC834A004D7727 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		ECE02DA927BC8A77004D7727 /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
@@ -197,6 +203,9 @@
 			isa = PBXGroup;
 			children = (
 				ECE02DAD27BC8C76004D7727 /* User.swift */,
+				EC5E2ECB27BDE40E004C622D /* Post.swift */,
+				EC5E2ECD27BDE456004C622D /* Album.swift */,
+				EC5E2ECF27BDE48A004C622D /* Photo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -204,7 +213,7 @@
 		ECE02DA727BC8A4F004D7727 /* ModelView */ = {
 			isa = PBXGroup;
 			children = (
-				EC9245D827BCD0DE003F5F08 /* UserViewModel.swift */,
+				EC9245D827BCD0DE003F5F08 /* PostViewModel.swift */,
 			);
 			path = ModelView;
 			sourceTree = "<group>";
@@ -445,9 +454,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6AC69A221ECEC740094A9B1 /* APIController.swift in Sources */,
-				EC9245D927BCD0DE003F5F08 /* UserViewModel.swift in Sources */,
+				EC9245D927BCD0DE003F5F08 /* PostViewModel.swift in Sources */,
 				ECE02DAA27BC8A77004D7727 /* Cell.swift in Sources */,
+				EC5E2ECC27BDE40E004C622D /* Post.swift in Sources */,
+				EC5E2ED027BDE48A004C622D /* Photo.swift in Sources */,
 				B6AC694F21E6578D0094A9B1 /* AppDelegate.swift in Sources */,
+				EC5E2ECE27BDE456004C622D /* Album.swift in Sources */,
 				ECE02DAE27BC8C76004D7727 /* User.swift in Sources */,
 				ECE02DA427BC834A004D7727 /* HomeViewController.swift in Sources */,
 				EC9245DC27BCD356003F5F08 /* Extensions.swift in Sources */,

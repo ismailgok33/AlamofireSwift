@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct User {
+struct User: Decodable {
     let id: Int
     let avatar: Avatar
     let name: String
@@ -18,30 +18,33 @@ struct User {
     let phone: String
     let website: String
     let company: Company
-    
 }
 
-struct Avatar {
+struct Avatar: Decodable {
     let large: String
     let medium: String
     let thumbnail: String
 }
 
-struct Address {
+struct Address: Decodable {
     let street: String
-    let suit: String
+    let suite: String
     let city: String
-    let zipCode: String
+    let zipcode: String
     let geo: Geo
 }
 
-struct Geo {
+struct Geo: Decodable {
     let lat: String
     let lng: String
 }
 
-struct Company {
+struct Company: Decodable {
     let name: String
     let catchPhrase: String
     let bs: String
+}
+
+struct Root: Decodable {
+    let results: [User]
 }

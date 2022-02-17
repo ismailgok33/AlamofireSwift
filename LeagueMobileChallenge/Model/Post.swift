@@ -1,5 +1,5 @@
 //
-//  UserViewModel.swift
+//  Post.swift
 //  LeagueMobileChallenge
 //
 //  Created by İsmail on 16.02.2022.
@@ -8,10 +8,9 @@
 
 import Foundation
 
-struct UserViewModel {
-    let user: User?
-    
-    init(user: User) {
-        self.user = user
-    }
+struct Post : Decodable {
+    let userId: Int
+    let id: Int
+    let title: String
+    let body: String
 }
