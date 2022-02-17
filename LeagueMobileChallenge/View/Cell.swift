@@ -11,7 +11,11 @@ import UIKit
 class Cell : UITableViewCell {
     
     // MARK: - Properties
-    var user: User?
+    var postViewModel: PostViewModel? {
+        didSet {
+            configureData()
+        }
+    }
     
     private let nameLabel: UILabel = {
         let label = UILabel()
@@ -61,7 +65,7 @@ class Cell : UITableViewCell {
     
     // MARK: - Helpers
     
-    func configureCellUI() {
+    private func configureCellUI() {
         let topStackView = UIStackView(arrangedSubviews: [avatarImage, nameLabel])
         topStackView.axis = .horizontal
         topStackView.distribution = .fillProportionally
@@ -78,6 +82,13 @@ class Cell : UITableViewCell {
         descriptionLabel.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 8, paddingLeft: 8, paddingRight: 8)
         
 
+    }
+    
+    private func configureData() {
+        nameLabel.text = postViewModel?.username
+        titleLabel.text = postViewModel?.title
+        descriptionLabel.text = postViewModel?.description
+        avatarImage.image = postViewModel?.avatarImage
     }
     
 }
