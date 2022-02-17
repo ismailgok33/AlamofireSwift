@@ -104,6 +104,7 @@ class HomeViewController: UITableViewController {
     // MARK: - Helpers
     
     private func configureUI() {
+        self.title = "Posts"
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(Cell.self, forCellReuseIdentifier: reuseIdentifier)
@@ -115,7 +116,7 @@ class HomeViewController: UITableViewController {
                 $0.id == post.userId
             })
             guard userList.count > 0 else { return nil}
-            print("DEBUG: avatar image url string is \(userList[0].avatar.thumbnail)")
+//            print("DEBUG: avatar image url string is \(userList[0].avatar.thumbnail)")
             return PostViewModel(user: userList[0], post: post)
         })
     }
@@ -136,10 +137,7 @@ extension HomeViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? Cell {
-            
             cell.postViewModel = postViewModels[indexPath.row]
-            print("DEBUG: avatar image is \(cell.postViewModel?.avatarImage)")
-            
             return cell
         }
         
@@ -151,6 +149,6 @@ extension HomeViewController {
 // MARK: - TableView Delegate
 extension HomeViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        return 170
     }
 }

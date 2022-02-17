@@ -19,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        window?.rootViewController = HomeViewController()
+        let rootNav = UINavigationController(rootViewController: HomeViewController())
+        window?.rootViewController = rootNav
         
         // Override point for customization after application launch.
         return true

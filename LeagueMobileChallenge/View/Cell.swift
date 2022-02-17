@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class Cell : UITableViewCell {
     
@@ -46,8 +47,11 @@ class Cell : UITableViewCell {
     
     private let avatarImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "xxx")
-        imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        imageView.backgroundColor = .blue
+//        imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        imageView.setDimensions(width: 50, height: 50)
+        imageView.layer.cornerRadius = 50 / 2
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
@@ -71,6 +75,7 @@ class Cell : UITableViewCell {
         topStackView.distribution = .fillProportionally
         topStackView.alignment = .center
         topStackView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        topStackView.spacing = 12
         
         addSubview(topStackView)
         topStackView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 12, paddingLeft: 8, paddingRight: 8)
@@ -88,7 +93,10 @@ class Cell : UITableViewCell {
         nameLabel.text = postViewModel?.username
         titleLabel.text = postViewModel?.title
         descriptionLabel.text = postViewModel?.description
-        avatarImage.image = postViewModel?.avatarImage
+        
+        guard let imageUrl = URL(string: postViewModel?.avatarImage ?? "") else { return }
+        
+        avatarImage.sd_setImage(with: imageUrl, completed: nil)
     }
     
 }

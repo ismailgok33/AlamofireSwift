@@ -10,13 +10,13 @@ import Foundation
 import UIKit
 
 struct PostViewModel {
-    let avatarImage: UIImage
+    let avatarImage: String
     let username: String
     let title: String
     let description: String
     
     init(user: User, post: Post) {
-        avatarImage = UIImage(named: user.avatar.thumbnail) ?? UIImage()
+        avatarImage = user.avatar.thumbnail
         username = user.username
         title = post.title
         description = post.body
