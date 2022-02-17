@@ -12,7 +12,7 @@ import SDWebImage
 class Cell : UITableViewCell {
     
     // MARK: - Properties
-    var postViewModel: PostViewModel? {
+    var showPost: ShowPost? {
         didSet {
             configureData()
         }
@@ -90,11 +90,11 @@ class Cell : UITableViewCell {
     }
     
     private func configureData() {
-        nameLabel.text = postViewModel?.username
-        titleLabel.text = postViewModel?.title
-        descriptionLabel.text = postViewModel?.description
+        nameLabel.text = showPost?.username
+        titleLabel.text = showPost?.title
+        descriptionLabel.text = showPost?.description
         
-        guard let imageUrl = URL(string: postViewModel?.avatarImage ?? "") else { return }
+        guard let imageUrl = URL(string: showPost?.avatarImage ?? "") else { return }
         
         avatarImage.sd_setImage(with: imageUrl, completed: nil)
     }

@@ -45,6 +45,3 @@ struct Company: Decodable {
     let bs: String
 }
 
-struct Root: Decodable {
-    let results: [User]
-}

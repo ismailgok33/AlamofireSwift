@@ -14,25 +14,17 @@ class HomeViewController: UITableViewController {
     
     // MARK: - Properties
 
-    private var postViewModels = [PostViewModel]() {
+    private var showPosts = [ShowPost]() {
         didSet {
-            print("DEBUG: postViewModels is set: \(postViewModels)")
+            print("DEBUG: ShowPost is set: \(showPosts)")
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
     
-    private var users: [User]? {
-        didSet {
-            self.initViewModels(users: users ?? [], posts: posts ?? [])
-        }
-    }
-    private var posts: [Post]? {
-        didSet {
-            self.initViewModels(users: users ?? [], posts: posts ?? [])
-        }
-    }
+    private var postViewModel: PostViewModel!
+
     
     // MARK: - Lifecycle
     
@@ -40,64 +32,7 @@ class HomeViewController: UITableViewController {
         super.viewDidLoad()
 
         configureUI()
-        
-        // TODO: Try to call these api calls more elegant way
-        
-        let group = DispatchGroup()
-        group.enter()
-        
-        APIController.shared.fetchUserToken { res, error in
-            
-            defer {
-                group.leave()
-            }
-            
-            // Get users
-            APIController.shared.fetchUsers { data, error in
-                guard let data = data, error == nil else { return }
-                
-                do {
-                    self.users = try JSONDecoder().decode([User].self, from: data as! Data)
-//                    print("DEBUG: users are \(self.users)")
-                }
-                catch {
-                    print(error.localizedDescription)
-                }
-            }
-            
-            // Get posts
-            APIController.shared.fetchPosts { posts, error in
-                guard let posts = posts, error == nil else { return }
-                
-                do {
-                    self.posts = try JSONDecoder().decode([Post].self, from: posts as! Data)
-//                    print("DEBUG: posts are \(self.posts)")
-                }
-                catch {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-        
-        group.notify(queue: .main) {
-            
-            print("DEBUG: girdiiiii")
-            
-            guard let posts = self.posts else {print("DEBUG: cikti1")
-                return }
-            guard let users = self.users else {print("DEBUG: cikti2")
-                return }
-            
-//            self.postViewModels = posts.compactMap({ post in
-//                var user = users.filter({
-//                    $0.id == post.userId
-//                })
-//                var postVm: PostViewModel = PostViewModel(user: user[0], post: post)
-//                return postVm
-//            })
-            self.initViewModels(users: users, posts: posts)
-        }
-        
+        getPostsFromVM()
         
     }
     
@@ -110,15 +45,18 @@ class HomeViewController: UITableViewController {
         tableView.register(Cell.self, forCellReuseIdentifier: reuseIdentifier)
     }
     
-    private func initViewModels(users: [User], posts: [Post]) {
-        self.postViewModels = posts.compactMap({ post in
-            let userList = users.filter({
-                $0.id == post.userId
-            })
-            guard userList.count > 0 else { return nil}
-//            print("DEBUG: avatar image url string is \(userList[0].avatar.thumbnail)")
-            return PostViewModel(user: userList[0], post: post)
-        })
+    private func getPostsFromVM() {
+        postViewModel = PostViewModel()
+        postViewModel.fetchPostData { showPosts in
+            guard let posts = showPosts
+            else {
+                print("DEBUG: in VC - showPosts is empty")
+                return
+                
+            }
+
+            self.showPosts = posts
+        }
     }
 
 }
@@ -132,12 +70,12 @@ extension HomeViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postViewModels.count
+        return showPosts.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? Cell {
-            cell.postViewModel = postViewModels[indexPath.row]
+            cell.showPost = showPosts[indexPath.row]
             return cell
         }
         
