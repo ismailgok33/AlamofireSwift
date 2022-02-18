@@ -22,6 +22,21 @@ class APIController {
     
     fileprivate var userToken: String?
     
+    func request(url: URL, completion: @escaping (Data?, Error?) -> Void) {
+        guard let userToken = userToken else {
+            NSLog("No user token set")
+            completion(nil, nil)
+            return
+        }
+        let authHeader: HTTPHeaders = ["x-access-token" : userToken]
+        
+        Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: authHeader).responseJSON { (response) in
+            completion(response.data, response.error)
+        }
+    }
+}
+
+extension APIController : APIProtocol {
     func fetchUserToken(userName: String = "", password: String = "", completion: @escaping (String?, Error?) -> Void) {
         guard let url = URL(string: loginAPI) else {
             return
@@ -63,29 +78,8 @@ class APIController {
 
         request(url: url) { data, error in
             guard let data = data, error == nil else { return }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
-                print("DEBUG: json: \(json)")
-            }
-            catch {
-                print("DEBUG: Error while fetching users...")
-            }
 
             completion(data, error)
-        }
-    }
-    
-    func request(url: URL, completion: @escaping (Data?, Error?) -> Void) {
-        guard let userToken = userToken else {
-            NSLog("No user token set")
-            completion(nil, nil)
-            return
-        }
-        let authHeader: HTTPHeaders = ["x-access-token" : userToken]
-        
-        Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: authHeader).responseJSON { (response) in
-            completion(response.data, response.error)
         }
     }
 }

@@ -6,6 +6,7 @@ target 'LeagueMobileChallenge' do
   use_frameworks!
   pod 'Alamofire'
   pod 'SDWebImage', '~> 4.0'
+  pod 'Mocker', '~> 2.5.4'
 
   # Pods for LeagueMobileChallenge
 

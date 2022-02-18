@@ -7,28 +7,78 @@
 //
 
 import XCTest
+import Mocker
+import Alamofire
 @testable import LeagueMobileChallenge
 
 class LeagueMobileChallengeTests: XCTestCase {
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    func testGetUsersViaNetworkCall() {
+        let expectation = self.expectation(description: "User response parse expectation")
+        
+        APIController.shared.fetchUserToken { res, err in
+            
+            APIController.shared.fetchUsers { data, error in
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+                XCTAssertNil(error)
+                guard let data = data else {
+                    XCTFail()
+                    return
+                }
+                
+                do {
+                    
+                    let users = try JSONDecoder().decode([User].self, from: data as! Data)
+                    XCTAssertNotNil(users)
+                    expectation.fulfill()
+                }
+                catch {
+                    XCTFail(error.localizedDescription)
+                }
+                
+            }
+            
         }
+        
+        
+        
+        self.waitForExpectations(timeout: 10.0, handler: nil)
+//        wait(for: [expectation], timeout: 20)
     }
+    
+//    func testGetMockUsers() {
+//        let mockAPIController = MockAPIController()
+//
+//        let expectation = self.expectation(description: "User response parse expectation")
+//
+//
+//            mockAPIController.fetchUsers { data, error in
+//
+//                print("TESTDEBUG: user data is \(data)")
+//
+//                XCTAssertNil(error)
+//                guard let data = data else {
+//                    XCTFail()
+//                    return
+//                }
+//
+//                do {
+//
+//                    let users = try JSONDecoder().decode([User].self, from: data as! Data)
+//                    XCTAssertNotNil(users)
+//                    expectation.fulfill()
+//                }
+//                catch {
+//                    XCTFail(error.localizedDescription)
+//                }
+//
+//            }
+//
+//
+//
+//
+//
+//        self.waitForExpectations(timeout: 10.0, handler: nil)
+//    }
 
 }
